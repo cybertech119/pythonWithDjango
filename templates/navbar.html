@@ -12,7 +12,12 @@
 
 </form>
 
-<a href="{% url 'login' %}">Login</a><br>
+{% if request.user.is_authenticated %}
+<p>Hello {{request.user}}</p>
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+{% endif%}
 <a href="{% url 'home' %}">Home</a>
 
 <hr>

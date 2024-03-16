@@ -2,14 +2,85 @@
 
 {% block content %}
 
-<div>
-    <form method="POST" action="">
-        {% csrf_token %}
+<style>
+    
+    /* CSS Styles */
+    .login-container {
+        width: 400px;
+        margin: 0 auto;
+        padding: 80px;
+        background-color: #c6beff;
+        border-radius: 200px;
+        box-shadow: 0 0 60px rgb(199, 176, 254);
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .login-form input[type="submit"] {
+        width: 105%;
+        padding: 12px;
+        background-color: #007bff;
+        color: #fff;
+        border: black;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .login-form input[type="submit"]:hover {
+        background-color: #00b35a;
+    }
+
+</style>
+
+
+{% if page == 'login' %}
+<div class="login-container">
+    <h2>Login</h2>
+    <form class="login-form" method="POST" action="">
+        {% csrf_token %}
+        <label>Username:</label>
         <input type="text" name="username" placeholder="Enter Username" />
+        <label>Password:</label>
         <input type="password" name="password" placeholder="Enter password" />
         <input type="submit" value="Login" />
     </form>
+
+    <p>Haven't signed up yet?</p>
+    <a href="{% url 'register' %}">Sign Up</a>
+
 </div>
+
+{% else %}
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Register" />
+    </form>
+
+    <p>Already signed Up</p>
+    <a href="{% url 'login' %}">Login</a>
+
+</div>
+
+{% endif %}
 
 {% endblock content %}
